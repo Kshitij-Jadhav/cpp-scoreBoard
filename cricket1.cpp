@@ -92,7 +92,7 @@ public:
     int teamRecord(int numberOfPlayers, int numberOfOvers, int target, int teamNumber)
     {
         Batting player[numberOfPlayers];
-        cout << "Batting Order for team " << teamNumber << " :" << endl;
+        cout << "\nBatting Order for team " << teamNumber << " :" << endl;
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
         {
             string inputName;
@@ -104,7 +104,7 @@ public:
         float over = 0;
         while (over < numberOfOvers)
         {
-            cout << "Over " << over + 1 << endl;
+            cout << "\nOver " << over + 1 << endl;
             int balls = 0;
             while (balls < 6)
             {
@@ -143,7 +143,7 @@ public:
                     cout << "Invalid entry" << endl;
                 }
             }
-            cout << "Scorecard for Team " << teamNumber << endl;
+            cout << "\nScorecard for Team " << teamNumber << endl;
             cout << "Player Name\tScore\t4s\t6s\tBalls" << endl;
             for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
             {
