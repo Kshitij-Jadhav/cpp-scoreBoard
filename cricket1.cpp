@@ -5,16 +5,6 @@
 
 using namespace std;
 
-bool isInList(string input, list<string> validList)
-{
-    for (list<string>::iterator item = validList.begin(); item != validList.end(); item++)
-    {
-        if (input == *item)
-            return true;
-    }
-    return false;
-}
-
 class Batting
 {
 private:
@@ -31,10 +21,12 @@ public:
         balls = 0;
         status = "Not Out";
     }
+
     void addName(string inputName)
     {
         name = inputName;
     }
+
     int addRecord(string inputScore)
     {
         int runs = stoi(inputScore);
@@ -46,11 +38,13 @@ public:
         balls++;
         return runs;
     }
+
     void changeStatus()
     {
         status = "Out";
         balls++;
     }
+
     void viewScoreCard(bool isOnGround)
     {
         if (isOnGround)
@@ -64,16 +58,37 @@ class Team
 {
 public:
     int teamScore, teamWickets;
+
     Team()
     {
         teamScore = 0;
         teamWickets = 0;
     }
+
+    bool isInList(string input, list<string> validList)
+    {
+        for (list<string>::iterator item = validList.begin(); item != validList.end(); item++)
+        {
+            if (input == *item)
+                return true;
+        }
+        return false;
+    }
+
     bool isValidScore(string inputScore)
     {
         list<string> validScore = {"W", "Wd", "1", "2", "3", "4", "6"};
         return isInList(inputScore, validScore);
     }
+
+    void changeStrike(Batting **batsman, Batting **runner)
+    {
+        Batting *temp;
+        temp = *batsman;
+        *batsman = *runner;
+        *runner = temp;
+    }
+
     int teamRecord(int numberOfPlayers, int numberOfOvers, int target, int teamNumber)
     {
         Batting player[numberOfPlayers];
@@ -117,10 +132,7 @@ public:
                         int runs = batsman->addRecord(inputScore);
                         if (runs % 2 != 0)
                         {
-                            Batting *temp;
-                            temp = batsman;
-                            batsman = runner;
-                            runner = temp;
+                            changeStrike(&batsman, &runner);
                         }
                         balls++;
                         teamScore += runs;
@@ -143,10 +155,7 @@ public:
             cout << "Total:" << teamScore << "/" << teamWickets << endl;
             if (balls == 6)
             {
-                Batting *temp;
-                temp = batsman;
-                batsman = runner;
-                runner = temp;
+                changeStrike(&batsman, &runner);
                 over++;
                 cout << "Overs: " << over << endl;
             }
